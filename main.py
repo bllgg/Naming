@@ -23,7 +23,18 @@ def generate_random_name(length=8):
 def rename_files_with_random_names():
     """
     Rename files in a folder with unique random names and create a mapping CSV.
+    If a mapping CSV exists, use it for renaming.
     """
+    # Check if the mapping CSV file exists
+    csv_file_path = os.path.join(folder_path, 'mapping.csv')
+    existing_mapping = {}
+
+    if os.path.exists(csv_file_path):
+        with open(csv_file_path, 'r') as csvFile:
+            csv_reader = csv.reader(csvFile)
+            next(csv_reader)  # Skip header
+            existing_mapping = {row[0]: row[1] for row in csv_reader}
+
     # Get a list of all files in the folder
     files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
 
@@ -31,7 +42,11 @@ def rename_files_with_random_names():
     mapping = {}
 
     for original_name in files:
-        random_name = generate_random_name()
+        if original_name in existing_mapping:
+            random_name = existing_mapping[original_name]
+        else:
+            random_name = generate_random_name()
+
         mapping[original_name] = random_name
 
         # Rename the file with the unique random name
@@ -40,7 +55,6 @@ def rename_files_with_random_names():
         os.rename(original_path, random_path)
 
     # Save the mapping to a CSV file
-    csv_file_path = os.path.join(folder_path, 'mapping.csv')
     with open(csv_file_path, 'w', newline='') as csvFile:
         csv_writer = csv.writer(csvFile)
         csv_writer.writerow(['Original Name', 'Random Name'])
