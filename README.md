@@ -9,6 +9,9 @@ A Python script to rename files in a folder with random names, create a mapping 
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
+  - [Step 1: Configure Folder Path](#step-1-configure-folder-path)
+  - [Step 2: Run the Script](#step-2-run-the-script)
+  - [Step 3: Restore Original File Names](#step-3-restore-original-file-names)
 - [Customization](#customization)
 - [Contributing](#contributing)
 - [License](#license)
@@ -31,3 +34,29 @@ A Python script to rename files in a folder with random names, create a mapping 
 
    ```bash
    git clone https://github.com/your-username/file-renaming-tool.git
+   cd file-renaming-tool
+   pip install -r requirements.txt
+   
+##Usage
+
+###Configure Folder Path
+```bash
+folder_path = r'C:\path\to\your\folder'
+```
+###Run the Script
+```bash
+python rename_files.py
+```
+###Restore Original File Names
+```bash
+python rename_files.py
+```
+
+## Customization
+Adjust the length of generated random names in ```generate_random_name``` function
+
+## Contributing
+Contributions are welcome! Open an issue or submit a pull request.
+
+## License
+Feel free to replace placeholders like `your-username` and customize paths based on your specific project details.
