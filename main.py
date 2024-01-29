@@ -4,20 +4,23 @@ import csv
 
 def generate_random_name(length=8):
     """
-    Generate a random string of a given length.
+    Generate a unique random string of a given length.
 
     Args:
         length (int): The length of the random string.
 
     Returns:
-        str: The generated random string.
+        str: The generated unique random string.
     """
     letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    return ''.join(random.choice(letters) for _ in range(length))
+    while True:
+        random_name = ''.join(random.choice(letters) for _ in range(length))
+        if not os.path.exists(random_name):
+            return random_name
 
 def rename_files(folder_path):
     """
-    Rename files in a folder with random names and create a mapping CSV.
+    Rename files in a folder with unique random names and create a mapping CSV.
 
     Args:
         folder_path (str): The path to the folder containing the files.
@@ -32,7 +35,7 @@ def rename_files(folder_path):
         random_name = generate_random_name()
         mapping[original_name] = random_name
 
-        # Rename the file with the random name
+        # Rename the file with the unique random name
         original_path = os.path.join(folder_path, original_name)
         random_path = os.path.join(folder_path, random_name)
         os.rename(original_path, random_path)
