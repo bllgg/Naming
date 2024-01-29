@@ -79,6 +79,9 @@ def restore_files_with_mapping():
         original_path = os.path.join(folder_path, original_name)
         os.rename(random_path, original_path)
 
+    # Delete the mapping CSV file after restoration
+    os.remove(csv_file_path)
+
 
 def exit_program():
     """
